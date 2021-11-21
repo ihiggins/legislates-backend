@@ -1,5 +1,5 @@
 const express = require('express');
-const { getPresident } = require('../service/core');
+const { getPresident, getSenate, getHouse } = require('../service/core');
 const router = express.Router();
 
 router.get('/', function (req, res) {
@@ -11,4 +11,13 @@ router.get('/president', async function (req, res) {
   res.json(temp);
 });
 
+router.get('/senate', async function (req, res) {
+  const temp = await getSenate();
+  res.json(temp);
+});
+
+router.get('/house', async function (req, res) {
+  const temp = await getHouse();
+  res.json(temp);
+});
 module.exports = router;

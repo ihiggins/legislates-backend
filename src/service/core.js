@@ -8,6 +8,8 @@ const Parser = require('rss-parser');
 const parser = new Parser();
 const logger = require('../config/logger');
 let president = [];
+let house = [];
+let senate = [];
 
 const parseRss = async (link) => {
   const res = await parser.parseURL(link);
@@ -51,6 +53,9 @@ const queryNews = async (query) => {
 
 const init = async () => {
   president = await parseRss('https://www.congress.gov/rss/presented-to-president.xml');
+  house = await parseRss('https://www.congress.gov/rss/house-floor-today.xml');
+  senate = await parseRss('https://www.congress.gov/rss/senate-floor-today.xml');
+
   logger.info('Rss fetched');
 };
 
@@ -65,10 +70,34 @@ const getPresident = async () => {
   );
   return proxy;
 };
+const getSenate = async () => {
+  // eslint-disable-next-line prefer-const
+  let proxy = senate;
+  await Promise.all(
+    proxy.map(async (item) => {
+      // eslint-disable-next-line no-param-reassign
+      item.news = await queryNews(item.content);
+    })
+  );
+  return proxy;
+};
+const getHouse = async () => {
+  // eslint-disable-next-line prefer-const
+  let proxy = house;
+  await Promise.all(
+    proxy.map(async (item) => {
+      // eslint-disable-next-line no-param-reassign
+      item.news = await queryNews(item.content);
+    })
+  );
+  return proxy;
+};
 
 module.exports = {
   queryNews,
   scrapeArticles,
   getPresident,
+  getSenate,
+  getHouse,
   init,
 };
