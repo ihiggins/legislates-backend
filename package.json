@@ -4,7 +4,7 @@
   "description": "",
   "bin": "bin/createNodejsApp.js",
   "main": "src/index.js",
-  "repository": "https://github.com/hagopj13/node-express-boilerplate.git",
+  "repository": "https://github.com/ihiggins/legislates-backend",
   "author": "",
   "license": "MIT",
   "engines": {

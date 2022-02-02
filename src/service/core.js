@@ -15,7 +15,6 @@ const parseRss = async (link) => {
   const res = await parser.parseURL(link);
   return res.items;
 };
-
 const scrapeArticles = async (html) => {
   const $ = cheerio.load(html);
   let results = [];
@@ -35,7 +34,6 @@ const scrapeArticles = async (html) => {
     });
   return results;
 };
-
 const queryNews = async (query) => {
   try {
     const inCache = queryCache.get(query);
@@ -50,7 +48,6 @@ const queryNews = async (query) => {
     return false;
   }
 };
-
 const init = async () => {
   president = await parseRss('https://www.congress.gov/rss/presented-to-president.xml');
   house = await parseRss('https://www.congress.gov/rss/house-floor-today.xml');
@@ -58,7 +55,6 @@ const init = async () => {
 
   logger.info('Rss fetched');
 };
-
 const getPresident = async () => {
   // eslint-disable-next-line prefer-const
   let proxy = president;
