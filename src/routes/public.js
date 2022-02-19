@@ -20,4 +20,16 @@ router.get('/house', async function (req, res) {
   const temp = await getHouse();
   res.json(temp);
 });
+
+
+
+
+
+
 module.exports = router;
+
+
+
+  route / controller / service 
+
+
