@@ -52,7 +52,6 @@ const init = async () => {
   president = await parseRss('https://www.congress.gov/rss/presented-to-president.xml');
   house = await parseRss('https://www.congress.gov/rss/house-floor-today.xml');
   senate = await parseRss('https://www.congress.gov/rss/senate-floor-today.xml');
-
   logger.info('Rss fetched');
 };
 const getPresident = async () => {
@@ -97,3 +96,35 @@ module.exports = {
   getHouse,
   init,
 };
+
+
+
+
+
+// const timeSeries = async (series, limit, rss_id) => {
+//   return dbClient
+//     .query(
+//       `
+// SELECT
+//     date_trunc('${series}', created_at) as ${series},
+//     COUNT (*)
+// FROM
+//     message
+// WHERE 
+// 	rss_id = ${rss_id}
+// GROUP BY
+//   ${series}
+// ORDER BY
+//   ${series}
+// LIMIT ${limit};
+//       `
+//     )
+//     .then((res) => {
+//       fastify.log.info(`(timeSeries) ${rss_id}`);
+//       return res.rows;
+//     })
+//     .catch((e) => {
+//       fastify.log.warn(`(timeSeries) ${e}`);
+//       return false;
+//     });
+// };
