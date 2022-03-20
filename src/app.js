@@ -11,9 +11,8 @@ const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
 const { publicLimiter } = require('./middlewares/rateLimiter');
 const app = express();
-const { init } = require('./service/core');
 
-init();
+
 if (config.env !== 'test') {
   app.use(morgan.successHandler);
   app.use(morgan.errorHandler);
@@ -39,10 +38,10 @@ app.use(cors());
 app.options('*', cors());
 
 // rate limiters
-app.use('/public/', publicLimiter);
+app.use('/', publicLimiter);
 
 // v1 api routes
-app.use('/public', publicRoutes);
+app.use('/', publicRoutes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
